@@ -1,6 +1,7 @@
 import './dashboard.css'
 import AppCards from "../appCards/appCards.jsx"
 import {useEffect, useState} from "react";
+import Navbar from "../NavBar/navbar.jsx";
 
 function dashboard(){
 
@@ -52,6 +53,8 @@ function dashboard(){
         <>
             <div className="dashboard">
 
+                <Navbar></Navbar>
+
                 <div className="filters">
                     <button>All</button>
                     <button>Applied</button>
@@ -60,11 +63,14 @@ function dashboard(){
                     <button>Rejected</button>
                 </div>
 
-                <div className="appsList">
-                    {jobList.map((singleJob) => (
-                        <AppCards key={singleJob.id} job={singleJob}/>
-                    ))}
+                <div className="dashboardContent">
+                    <div className="appsList">
+                        {jobList.map((singleJob) => (
+                            <AppCards key={singleJob.id} job={singleJob}/>
+                        ))}
+                    </div>
                 </div>
+                <div className="footer"></div>
 
 
             </div>

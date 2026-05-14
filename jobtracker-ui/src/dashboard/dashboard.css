@@ -33,7 +33,12 @@ button:hover{
     display:flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #b6b6b6clau;
+    background-color: #b6b6b6;
+
+}
+
+.dashboardContent{
+    flex: 1;
 }
 
 .appsList{
@@ -42,5 +47,11 @@ button:hover{
     gap: 2rem;
     padding: 12px 12px;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer{
+    padding: 20px;
+    background-color: grey;
 }
 

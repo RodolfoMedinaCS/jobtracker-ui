@@ -1,16 +1,17 @@
+import {Link} from "react-router-dom";
 
 
 function NavBar() {
 
     return (
         <nav className="nav">
-            <a href="/jobtracker-ui/public" className="logo">Logo</a>
+            <Link to={"/dashboard"} className="logo">Logo</Link>
             <ul className="ul">
                 <li>
-                    <a href="/Pricing">Add Application</a>
+                    <Link to={"/add-application"}>Add Application</Link>
                 </li>
                 <li>
-                    <a href="/About">Account</a>
+                    <Link to={"/account"}>Account</Link>
                 </li>
             </ul>
         </nav>
