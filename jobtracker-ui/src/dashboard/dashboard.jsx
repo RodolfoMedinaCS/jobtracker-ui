@@ -1,4 +1,4 @@
-import './dashboard.css'
+import styles from './dashboard.module.css'
 import AppCards from "../appCards/appCards.jsx"
 import {useEffect, useState} from "react";
 import Navbar from "../NavBar/navbar.jsx";
@@ -8,54 +8,17 @@ function dashboard(){
     const[jobList, setJobList] = useState([]);
 
     useEffect(() => {
-        const fakeData = [
-            {
-                id: 1,
-                company: "Google",
-                title: "Frontend Intern",
-                status: "Applied",
-                date: "June 2nd 2026"
-            },
-            {
-                id: 2,
-                company: "Amazon",
-                title: "Software Engineer Intern",
-                status: "Interview",
-                date: "May 2nd 2026"
-            },
-            {
-                id: 3,
-                company: "Meta",
-                title: "Frontend Intern",
-                status: "Applied",
-                date: "June 2nd 2026"
-            },
-            {
-                id: 4,
-                company: "Netflix",
-                title: "Software Engineer Intern",
-                status: "Interview",
-                date: "May 2nd 2026"
-            },
-            {
-                id: 5,
-                company: "X",
-                title: "Software Engineer Intern",
-                status: "Interview",
-                date: "May 2nd 2026"
-            }
-        ];
-
-        setJobList(fakeData);
-    }, []);
+        fetch("http://localhost:8080/api/v1/applications")
+            .then(res => res.json()).then(data => setJobList(data))
+    }, [])
 
     return(
         <>
-            <div className="dashboard">
+            <div className={styles.dashboard}>
 
                 <Navbar></Navbar>
 
-                <div className="filters">
+                <div className={styles.filters}>
                     <button>All</button>
                     <button>Applied</button>
                     <button>Interviews</button>
@@ -63,16 +26,14 @@ function dashboard(){
                     <button>Rejected</button>
                 </div>
 
-                <div className="dashboardContent">
-                    <div className="appsList">
+                <div className={styles.dashboardContent}>
+                    <div className={styles.appsList}>
                         {jobList.map((singleJob) => (
                             <AppCards key={singleJob.id} job={singleJob}/>
                         ))}
                     </div>
                 </div>
-                <div className="footer"></div>
-
-
+                <div className={styles.footer}></div>
             </div>
         </>
     )

@@ -1,0 +1,48 @@
+
+
+label{
+    color: black;
+}
+
+hr{
+    border:none;
+    height: 2px;
+    background-color: black;
+    width: 90%;
+}
+
+.detailCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 500px;
+    height: auto;
+    padding: 32px;
+    background-color: white;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    margin: 12px 12px;
+    gap: 2rem;
+}
+
+.pageWrapper{
+    display: flex;
+    align-items: center;
+    background-color: aqua;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.infoGrid{
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    justify-content: flex-start;
+    width: 100%
+}

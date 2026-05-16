@@ -1,18 +1,18 @@
-import './appCards.css'
+import styles from './appCards.module.css'
 import { Link } from "react-router-dom";
 
 function appCards({job}){
     return(
         <div>
-            <Link key={job.id} to={`/applications/${job.id}`} className="applicationCard">
-                <div className="metaData">
+            <Link key={job.id} to={`/applications/${job.id}`} className={styles.applicationCard}>
+                <div className={styles.metaData}>
                     <h3>{job.company}</h3>
-                    <p>{job.title}</p>
+                    <p>{job.jobTitle}</p>
                 </div>
 
-                <div className="metaData">
+                <div className={styles.metaData}>
                     <span>{job.status}</span>
-                    <p>{job.date}</p>
+                    <p>{job.dateApplied}</p>
                 </div>
             </Link>
         </div>
