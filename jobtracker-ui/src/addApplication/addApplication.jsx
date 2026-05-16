@@ -10,6 +10,7 @@ function AddApplication(){
     const navigate = useNavigate();
     const location = useLocation();
     const existingApp = location.state;
+    const[showConfirm, setShowConfirm] = useState(false);
 
     let initialData;
 
@@ -33,38 +34,78 @@ function AddApplication(){
 
     const [formData, setFormData] = useState(initialData)
 
-    function handleSubmit(){
+    async function handleSubmit(){
         if(!formData.company || !formData.jobTitle || !formData.status || !formData.dateApplied
         || !formData.notes){
             alert("please fill out all fields!");
             return;
         }
+        await handleUpdate();
+    }
+
+    async function handleUpdate(){
 
         if(existingApp){
-            fetch(`http://localhost:8080/api/v1/applications/${existingApp.id}`, {
-                method: "PATCH",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData)
-            })
+            try{
+                const response =
+                    await fetch(`http://localhost:8080/api/v1/applications/${existingApp.id}`,{
+                        method: "PATCH",
+                        headers: {"Content-Type" : "application/json"},
+                        body: JSON.stringify(formData),
+                    });
+
+                if(!response.ok){
+                    throw new Error("Update Failed!");
+                }
+                setShowConfirm(true);
+            }catch(error){
+                console.log(error);
+            }
         }else{
-            fetch("http://localhost:8080/api/v1/applications",{
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData)
-            })
+            try{
+                const response =
+                    await fetch("http://localhost:8080/api/v1/applications",{
+                        method: "POST",
+                        headers: {"Content-Type" : "application/json"},
+                        body: JSON.stringify(formData),
+                    });
+
+                if(!response.ok){
+                    throw new Error("Save Failed!");
+                }
+                setShowConfirm(true);
+            }catch(error){
+                console.log(error);
+            }
+
         }
     }
 
-    function handleCancel(){
+    function backToDash(){
         navigate('/dashboard');
     }
 
+
+
     return(
         <>
+            {showConfirm && (
+                <div className={styles.modal}>
+                    <div className={styles.modalBox}>
+                        <p>{existingApp ? "Application Updated!" : "Application Saved!"}</p>
+                        <div className={styles.bttns}>
+                            <button onClick={() => {
+                                setShowConfirm(false); backToDash()
+                            }}>Ok!</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className={styles.pageWrapper}>
                 <Navbar/>
                 <div className={styles.appOptions}>
-                    <button onClick={handleCancel} >Cancel</button>
+                    <button onClick={backToDash} >Cancel</button>
                     <button onClick={handleSubmit}>Add + </button>
                 </div>
 

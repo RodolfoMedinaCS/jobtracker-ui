@@ -7,6 +7,7 @@ function ApplicationDetails(){
     const {id} = useParams();
     const[job, setJob] = useState([]);
     const navigate = useNavigate();
+    const[showConfirm, setShowConfirm] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/v1/applications/${id}`)
@@ -22,9 +23,42 @@ function ApplicationDetails(){
         navigate('/add-application', {state : job})
     }
 
+    function handleDelete() {
+        setShowConfirm(true);
+    }
+
+    async function confirmDelete(){
+        try{
+            const response =
+                await fetch(`http://localhost:8080/api/v1/applications/${id}`,{
+                    method: "DELETE",
+                });
+
+            if(!response.ok){
+                throw new Error("Delete Failed");
+            }
+            navigate('/dashboard');
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <Navbar></Navbar>
+
+            {showConfirm && (
+                <div className={styles.modal}>
+                    <div className={styles.modalBox}>
+                        <p>Are you sure?</p>
+                        <div className={styles.bttns}>
+                            <button onClick={confirmDelete}>Yes</button>
+                            <button onClick={() => setShowConfirm(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <button onClick={goBack}>Back Button</button>
             <div className={styles.pageWrapper}>
                 <div className={styles.detailCard}>
@@ -48,7 +82,7 @@ function ApplicationDetails(){
                     {/*Action Buttons*/}
 
                     <div className={styles.actionsButtons}>
-                        <button>Delete</button>
+                        <button onClick={handleDelete}>Delete</button>
                         <button onClick={handleEdit} >Edit</button>
                     </div>
                 </div>

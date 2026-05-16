@@ -23,9 +23,19 @@ button:hover{
     background: #b6b6b6
 }
 
+.flexContainer{
+    display:flex;
+    justify-content: center;
+    background-color: #029b66;
+}
+
 
 .filters{
-    background-color: #029b66;
+    gap: 0.5rem;
+    width: 300px;
+}
+.filters label{
+    font-size: 25px;
 }
 
 .dashboard{
