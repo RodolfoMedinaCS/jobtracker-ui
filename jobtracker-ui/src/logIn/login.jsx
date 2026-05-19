@@ -1,13 +1,14 @@
 import styles from "./login.module.css"
 import {Link} from "react-router-dom";
+import loginImage from "../../svgImages/file.svg"
 
 function login(){
+
 
     return(
         <>
             <div className={styles.flexContiner}>
                 <div className={styles.loginBox}>
-
                     <div className={styles.loginInfo}>
 
                         <div>
@@ -23,14 +24,13 @@ function login(){
                         </header>
 
                         <div className={styles.userInput}>
+
                             <div className={styles.email}>
-                                <label>Email</label>
-                                <input type="text"/>
+                                <input type="email" placeholder="Email"/>
                             </div>
 
                             <div className={styles.password}>
-                                <label>Password</label>
-                                <input type="text"/>
+                                <input type="password" placeholder="Passwrod"/>
                             </div>
 
                             <div className={styles.radioBttn}>
@@ -42,10 +42,16 @@ function login(){
 
 
                         <div className={styles.bttns}>
-                            <button>Create Account</button>
+                            <Link to={"/register"}>
+                                <button>Create Account</button>
+                            </Link>
                             <button>Log In</button>
                         </div>
                     </div>
+                </div>
+
+                <div class={styles.imgContainer}>
+                    <img src={loginImage} alt="login illustration"/>
                 </div>
             </div>
         </>
