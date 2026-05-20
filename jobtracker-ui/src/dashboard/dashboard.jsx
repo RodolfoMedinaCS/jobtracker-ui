@@ -21,11 +21,17 @@ function dashboard(){
     */}
     const filteredJobs = filter === "ALL" ? jobList : jobList.filter(job =>
     job.status === filter);
+    const token = localStorage.getItem("token");
 
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/v1/applications")
+        fetch("http://localhost:8080/api/v1/applications",{
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${token}`},
+        })
             .then(res => res.json()).then(data => setJobList(data))
     }, [])
 

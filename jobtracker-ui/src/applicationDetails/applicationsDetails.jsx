@@ -8,12 +8,18 @@ function ApplicationDetails(){
     const[job, setJob] = useState([]);
     const navigate = useNavigate();
     const[showConfirm, setShowConfirm] = useState(false);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/v1/applications/${id}`)
+        fetch(`http://localhost:8080/api/v1/applications/${id}`,{
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${token}`}
+        })
             .then(res => res.json())
             .then(data => setJob(data));
-    },[])
+    },[id])
 
     function goBack(){
         navigate('/dashboard');
@@ -32,6 +38,10 @@ function ApplicationDetails(){
             const response =
                 await fetch(`http://localhost:8080/api/v1/applications/${id}`,{
                     method: "DELETE",
+                    headers: {
+                        "Content-Type" : "application/json",
+                        "Authorization" : `Bearer ${token}`
+                    }
                 });
 
             if(!response.ok){

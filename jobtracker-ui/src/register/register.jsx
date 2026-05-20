@@ -39,7 +39,7 @@ function register(){
             navigate("/dashboard");
 
         }catch(error){
-            throw new Error(error);
+            console.log(error);
         }
     }
 

@@ -11,6 +11,7 @@ function AddApplication(){
     const location = useLocation();
     const existingApp = location.state;
     const[showConfirm, setShowConfirm] = useState(false);
+    const token = localStorage.getItem("token");
 
     let initialData;
 
@@ -50,7 +51,9 @@ function AddApplication(){
                 const response =
                     await fetch(`http://localhost:8080/api/v1/applications/${existingApp.id}`,{
                         method: "PATCH",
-                        headers: {"Content-Type" : "application/json"},
+                        headers: {
+                            "Content-Type" : "application/json",
+                            "Authorization" : `Bearer ${token}`},
                         body: JSON.stringify(formData),
                     });
 
@@ -66,7 +69,9 @@ function AddApplication(){
                 const response =
                     await fetch("http://localhost:8080/api/v1/applications",{
                         method: "POST",
-                        headers: {"Content-Type" : "application/json"},
+                        headers: {
+                            "Content-Type" : "application/json",
+                            "Authorization" : `Bearer ${token}`},
                         body: JSON.stringify(formData),
                     });
 
